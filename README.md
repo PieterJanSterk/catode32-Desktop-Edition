@@ -1,5 +1,9 @@
 # Catode32 Desktop Emulator
 
+I was absolutely charmed by [moonbench's](https://github.com/moonbench) [catode32 project](https://github.com/moonbench/catode32)! It is very complete and has beautiful pixel art! I wanted to try it on desktop and run it on a larger kiosk screen, so here are some pygame files to run it on desktop or Raspberry Pi. I highly recommand trying it! 
+
+I was looking to provide my daughter a Tamagotchi, and also introduce my elementary students to with a social experiment (Can a group of students take care of a virtual animal on the playground, together?). I wanted some sort of a kiosk/arcade style/display, where students can take care of the virtual animal, come together, get excited/learn about coding.
+
 This repository provides a desktop-based environment for Catode32, allowing you to run and test your code in a local window using Python and Pygame. It serves as a hardware abstraction layer, replacing physical components (OLED, GPIO pins) with a windowed interface and keyboard input.
 
 ## What's Included
