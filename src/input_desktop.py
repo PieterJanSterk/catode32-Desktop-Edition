@@ -2,11 +2,14 @@
 input_desktop.py - Keyboard/gamepad input for desktop/PC
 Replaces input.py when running catode32 on a PC.
 
-Button mapping (configurable in config_desktop.py):
-  UP    → Arrow Up       DOWN  → Arrow Down
-  LEFT  → Arrow Left     RIGHT → Arrow Right
-  A     → Z              B     → X
-  MENU1 → A              MENU2 → S
+Uses keys that are in the same physical position on both QWERTY and AZERTY:
+
+  Arrow keys  →  D-pad (Up / Down / Left / Right)
+  T           →  A button
+  Y           →  B button
+  U           →  Menu 1
+  I           →  Menu 2
+  Escape      →  Quit
 """
 
 import time
@@ -15,40 +18,32 @@ import config
 
 
 class InputHandler:
-    """Handles keyboard (and optionally gamepad) input.
+    """Handles keyboard input.
     API-compatible with the ESP32 InputHandler.
     """
 
     BUTTON_KEYS = ('up', 'down', 'left', 'right', 'a', 'b', 'menu1', 'menu2')
 
     _KEY_MAP = {
-        'up':    config.BTN_UP,
-        'down':  config.BTN_DOWN,
-        'left':  config.BTN_LEFT,
-        'right': config.BTN_RIGHT,
-        'a':     config.BTN_A,
-        'b':     config.BTN_B,
-        'menu1': config.BTN_MENU1,
-        'menu2': config.BTN_MENU2,
+        'up':    pygame.K_UP,
+        'down':  pygame.K_DOWN,
+        'left':  pygame.K_LEFT,
+        'right': pygame.K_RIGHT,
+        'a':     pygame.K_t,
+        'b':     pygame.K_y,
+        'menu1': pygame.K_u,
+        'menu2': pygame.K_i,
     }
 
     def __init__(self):
         self.button_states    = {k: False for k in self.BUTTON_KEYS}
         self.last_press_time  = {k: 0     for k in self.BUTTON_KEYS}
         self.debounce_time_ms = 50
-        self._keys = pygame.key.get_pressed()   # updated each frame via pump()
-
-    # ------------------------------------------------------------------
-    # Call once per frame from main_desktop.py so the key state is fresh
-    # ------------------------------------------------------------------
+        self._keys = pygame.key.get_pressed()
 
     def pump(self):
         """Refresh internal key state. Call once per game loop iteration."""
         self._keys = pygame.key.get_pressed()
-
-    # ------------------------------------------------------------------
-    # Public API (matches ESP32 InputHandler)
-    # ------------------------------------------------------------------
 
     def is_pressed(self, button_name):
         key = self._KEY_MAP.get(button_name)

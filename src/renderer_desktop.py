@@ -73,10 +73,17 @@ class _FakeDisplay:
         off_color = config.DISPLAY_BG
         surf = self._surface
         surf.fill(off_color)
+        # The real SSD1306 hardware uses SEG remap (0xA1) which mirrors
+        # the display horizontally at the hardware level. The game content
+        # was designed with this mirror active, so we compensate here.
+        # Set DISPLAY_MIRROR_H = False in config_desktop.py to disable.
+        mirror = getattr(config, 'DISPLAY_MIRROR_H', True)
+        w = self.width
         for y in range(self.height):
-            for x in range(self.width):
+            for x in range(w):
                 if self._fb.pixel(x, y):
-                    pygame.draw.rect(surf, on_color, (x * s, y * s, s, s))
+                    draw_x = (w - 1 - x) if mirror else x
+                    pygame.draw.rect(surf, on_color, (draw_x * s, y * s, s, s))
         pygame.display.flip()
 
 

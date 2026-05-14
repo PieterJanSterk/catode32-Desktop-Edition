@@ -198,7 +198,8 @@ class FrameBuffer:
             glyph = self._FONT.get(code, self._FONT.get(63))  # fallback to '?'
             for row_idx, row_byte in enumerate(glyph):
                 for bit in range(8):
-                    if row_byte & (0x80 >> bit):
+                    # Font bytes are stored LSB-first (bit 0 = leftmost pixel)
+                    if row_byte & (1 << bit):
                         self.pixel(cx + bit, y + row_idx, c)
                     else:
                         self.pixel(cx + bit, y + row_idx, 0 if c else 1)
