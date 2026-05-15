@@ -22,18 +22,13 @@ The emulator consists of 5 core files that bridge the gap between MicroPython ha
 
 Follow these steps to get the desktop version running on your machine:
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/moonbench/catode32](https://github.com/moonbench/catode32)
-    ```
-2.  **Add the Desktop files:**
-    Place the 5 files listed above into the `/src` folder of your project.
-3.  **Install dependencies:**
+1.  **Install dependencies:**
     The emulator requires Pygame to handle the window and input:
     ```bash
     pip install pygame
     ```
-4.  **Run the emulator:**
+2.  **Run the emulator:**
+    Download the code.
     Navigate to the `/src` folder and execute the main script:
     ```bash
     python main_desktop.py
