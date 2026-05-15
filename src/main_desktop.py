@@ -42,6 +42,7 @@ import types
 # machine — stub Pin/I2C so modules that import them don't crash
 machine_stub = types.ModuleType('machine')
 machine_stub.reset = lambda: sys.exit(0)   # crash handler calls machine.reset()
+machine_stub.soft_reset = lambda: print("[Desktop] Save complete (no reboot needed)")
 
 class _Pin:
     IN = 1; OUT = 0; PULL_UP = 1

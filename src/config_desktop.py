@@ -6,6 +6,13 @@ Copy or symlink this as config.py to run on desktop.
 
 import pygame
 
+import os as _os
+
+# Save file location — stored next to config_desktop.py so it's easy to find.
+# Change this to any path you prefer, e.g.:
+#   _os.path.expanduser("~/catode32_save.json")
+SAVE_PATH = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'save.json')
+
 BOARD_TYPE = "DESKTOP"
 
 # Display Configuration — matches original OLED resolution
